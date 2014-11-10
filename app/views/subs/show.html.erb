@@ -1,0 +1,21 @@
+<h1><%= @sub.title %></h1>
+<h1><%= @sub.votes %></h1>
+Description
+<h2><%= @sub.description %></h2>
+<%= button_to "Upvote", upvote_sub_url(@sub) %>
+<%= button_to "Downvote", downvote_sub_url(@sub) %>
+
+<% if user_is_creator?(@sub, :moderator_id)%>
+  <%= link_to "Edit", edit_sub_url(@sub) %>
+<%end%>
+
+<%= link_to "Make New Post!", new_post_url %>
+
+<ul>
+  <% @sub.posts.each do |post| %>
+    <li>(<%= post.votes %>) <%= link_to post.title, post %>
+			<%= button_to "Upvote", upvote_post_url(post) %>
+			<%= button_to "Downvote", downvote_post_url(post) %>
+		</li>
+  <% end %>
+</ul>

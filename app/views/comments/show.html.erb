@@ -1,0 +1,6 @@
+<%= @comment.votes %>
+<%= @comment.content %> by <%= @comment.author.username %>
+<br><br>
+
+<b>Reply to this comment:</b>
+<%= render "form", comment: @new_comment %>

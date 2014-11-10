@@ -1,0 +1,7 @@
+<h1>All Subs</h1>
+<ul>
+<% @subs.each do |sub| %>
+  <%= sub.votes %>
+  <%= link_to sub.title, sub_url(sub) %>
+<% end %>
+</ul>

@@ -1,0 +1,34 @@
+<h1><%= @post.title %> by <%= @post.author.username %></h1> 
+<h1><%= @post.votes %></h1>
+<h3><%= link_to(@post.url) if @post.url %></h3>
+<br>
+Content
+<p><%= @post.content if @post.content %></p>
+<%= button_to "Upvote", upvote_post_url(@post) %>
+<%= button_to "Downvote", downvote_post_url(@post) %>
+<br><br>
+Subs
+<ul>
+  <% @post.subs.each do |sub| %>
+    <li><%= link_to sub.title, sub_url(sub) %></li>
+  <% end %>
+</ul>
+<% if user_is_creator?(@post, :author_id)%>
+  <%= link_to "Edit", edit_post_url(@post) %>
+<% end %>
+
+<h2>Comments</h2>
+
+<%= link_to "Comment on this post!", new_post_comment_url(@post.id) %>
+<br><br>
+
+<ul>
+  <% comments_by_parent = @post.comments_by_parent %>
+  <% comments_by_parent[nil].each do |top_level_comment| %>
+    <li>
+      <%= render("comments/comment",
+                 comment: top_level_comment,
+                 comments_by_parent: comments_by_parent) %>
+    </li>
+  <% end %>
+</ul>
